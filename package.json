@@ -1,0 +1,24 @@
+{
+  "name": "octothorpe",
+  "version": "1.0.0",
+  "description": "A game of tic-tac-toe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lewismoten/octothorpe.git"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "game",
+    "boardgame"
+  ],
+  "author": "Lewis Edward Moten III",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lewismoten/octothorpe/issues"
+  },
+  "homepage": "https://github.com/lewismoten/octothorpe#readme"
+}
