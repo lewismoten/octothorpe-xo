@@ -3,7 +3,8 @@
   'use strict';
 
   let isUndefined = require('is-undefined'),
-    template = require('indexed-template');
+    template = require('indexed-template'),
+    state = Symbol('state');
 
   const emptyCell = ' ',
     player1 = 'X',
@@ -16,7 +17,7 @@
       [0, 3, 6],
       [1, 4, 7],
       [2, 5, 8],
-      [0, 4, 5],
+      [0, 4, 8],
       [2, 4, 6]
     ];
 
@@ -49,7 +50,7 @@
 
     get hasEnded() {
 
-      return this.turn === 9 ||
+      return this.turn === 10 ||
         this.winner !== emptyCell;
 
     }
@@ -77,6 +78,12 @@
     }
 
     get winner() {
+
+      if (this.turn <= 6) {
+
+        return emptyCell;
+
+      }
 
       let win = wins.find(isWin, this._grid);
 
