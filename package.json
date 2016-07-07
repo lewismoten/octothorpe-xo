@@ -1,5 +1,5 @@
 {
-  "name": "octothorpe",
+  "name": "octothorpe-xo",
   "version": "1.0.0",
   "description": "A game of tic-tac-toe",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lewismoten/octothorpe.git"
+    "url": "git+https://github.com/lewismoten/octothorpe-xo.git"
   },
   "keywords": [
     "tic-tac-toe",
@@ -18,9 +18,9 @@
   "author": "Lewis Edward Moten III",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lewismoten/octothorpe/issues"
+    "url": "https://github.com/lewismoten/octothorpe-xo/issues"
   },
-  "homepage": "https://github.com/lewismoten/octothorpe#readme",
+  "homepage": "https://github.com/lewismoten/octothorpe-xo#readme",
   "dependencies": {
     "indexed-template": "^1.0.0",
     "is-undefined": "^1.0.2"
