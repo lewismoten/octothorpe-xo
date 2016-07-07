@@ -25,20 +25,20 @@
 
     constructor() {
 
-      this._grid = Array(9);
+      this[state] = Array(9);
       this.reset();
 
     }
 
     reset() {
 
-      this._grid.fill(emptyCell);
+      this[state].fill(emptyCell);
 
     }
 
     markAt(x, y) {
 
-      return this._grid[indexOf(x, y)];
+      return this[state][indexOf(x, y)];
 
     }
 
@@ -57,7 +57,7 @@
 
     get turn() {
 
-      return this._grid.filter(v => v !== emptyCell).length + 1;
+      return this[state].filter(v => v !== emptyCell).length + 1;
 
     }
 
@@ -71,7 +71,7 @@
 
       if (this.canMark(x, y)) {
 
-        this._grid[indexOf(x, y)] = this.nextMark;
+        this[state][indexOf(x, y)] = this.nextMark;
 
       }
 
@@ -85,11 +85,11 @@
 
       }
 
-      let win = wins.find(isWin, this._grid);
+      let win = wins.find(isWin, this[state]);
 
       if (!isUndefined(win)) {
 
-        return this._grid[win[0]];
+        return this[state][win[0]];
 
       }
 
@@ -99,7 +99,7 @@
 
     toString() {
 
-      return octothorp(...this._grid);
+      return octothorp(...this[state]);
 
     }
 
