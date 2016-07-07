@@ -3,13 +3,12 @@
   'use strict';
 
   let isUndefined = require('is-undefined'),
-    template = require('indexed-template'),
+    octothorpe = require('octothorpe'),
     state = Symbol('state');
 
   const emptyCell = ' ',
     player1 = 'X',
     player2 = 'O',
-    octothorp = template` ${0} | ${1} | ${2} \n-----------\n ${3} | ${4} | ${5} \n-----------\n ${6} | ${7} | ${8} `,
     wins = [
       [0, 1, 2],
       [3, 4, 5],
@@ -99,7 +98,7 @@
 
     toString() {
 
-      return octothorp(...this[state]);
+      return octothorpe(...this[state]);
 
     }
 

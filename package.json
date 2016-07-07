@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/lewismoten/octothorpe-xo#readme",
   "dependencies": {
-    "indexed-template": "^1.0.0",
-    "is-undefined": "^1.0.2"
+    "is-undefined": "^1.0.2",
+    "octothorpe": "^1.0.0"
   }
 }
