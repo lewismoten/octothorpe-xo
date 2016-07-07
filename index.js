@@ -79,7 +79,7 @@
 
     get winner() {
 
-      if (this.turn <= 6) {
+      if (this.turn <= 5) {
 
         return emptyCell;
 

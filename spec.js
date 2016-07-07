@@ -54,30 +54,151 @@ describe('package', () => {
 
     it('has no marks', () => {
 
-
-      expect(game.markAt(1, 1)).toBe(empty);
-      expect(game.markAt(1, 2)).toBe(empty);
-      expect(game.markAt(1, 3)).toBe(empty);
-      expect(game.markAt(2, 1)).toBe(empty);
-      expect(game.markAt(2, 2)).toBe(empty);
-      expect(game.markAt(2, 3)).toBe(empty);
-      expect(game.markAt(3, 1)).toBe(empty);
-      expect(game.markAt(3, 2)).toBe(empty);
-      expect(game.markAt(3, 3)).toBe(empty);
+      tieMarks.forEach(xy => expect(game.markAt(xy.x, xy.y)).toBe(empty));
 
     });
 
     it('can mark everything', () => {
 
-      expect(game.canMark(1, 1)).toBe(true);
-      expect(game.canMark(1, 2)).toBe(true);
-      expect(game.canMark(1, 3)).toBe(true);
-      expect(game.canMark(2, 1)).toBe(true);
-      expect(game.canMark(2, 2)).toBe(true);
-      expect(game.canMark(2, 3)).toBe(true);
-      expect(game.canMark(3, 1)).toBe(true);
-      expect(game.canMark(3, 2)).toBe(true);
-      expect(game.canMark(3, 3)).toBe(true);
+      tieMarks.forEach(xy => expect(game.canMark(xy.x, xy.y)).toBe(true));
+
+    });
+
+  });
+
+  describe('Winning', () => {
+
+    let game = new Lib();
+
+    it('As player 1', () => {
+
+      game.reset();
+      game.mark(1, 1);
+      game.mark(2, 1);
+      game.mark(1, 2);
+      game.mark(2, 2);
+      game.mark(1, 3);
+      expect(game.winner).toBe(player1);
+
+    });
+    it('As player 1', () => {
+
+      game.reset();
+      game.mark(1, 1);
+      game.mark(2, 1);
+      game.mark(1, 2);
+      game.mark(2, 2);
+      game.mark(3, 3);
+      game.mark(2, 3);
+      expect(game.winner).toBe(player2);
+
+    });
+
+    describe('Diagonal', () => {
+
+      it('Back', () => {
+
+        game.reset();
+        game.mark(1, 1);
+        game.mark(2, 1);
+        game.mark(2, 2);
+        game.mark(3, 1);
+        game.mark(3, 3);
+        expect(game.winner).toBe(player1);
+
+      });
+
+      it('Forward', () => {
+
+        game.reset();
+        game.mark(3, 1);
+        game.mark(2, 1);
+        game.mark(2, 2);
+        game.mark(3, 3);
+        game.mark(1, 3);
+        expect(game.winner).toBe(player1);
+
+      });
+
+    });
+
+    describe('Vertical', () => {
+
+      it('Left', () => {
+
+        game.reset();
+        game.mark(1, 1);
+        game.mark(2, 1);
+        game.mark(1, 2);
+        game.mark(2, 2);
+        game.mark(1, 3);
+        expect(game.winner).toBe(player1);
+
+      });
+
+      it('Center', () => {
+
+        game.reset();
+        game.mark(2, 1);
+        game.mark(3, 1);
+        game.mark(2, 2);
+        game.mark(3, 2);
+        game.mark(2, 3);
+        expect(game.winner).toBe(player1);
+
+      });
+
+      it('Right', () => {
+
+        game.reset();
+        game.mark(3, 1);
+        game.mark(2, 1);
+        game.mark(3, 2);
+        game.mark(2, 2);
+        game.mark(3, 3);
+        expect(game.winner).toBe(player1);
+
+      });
+
+    });
+
+    describe('Horizontal', () => {
+
+      it('Can win top row', () => {
+
+        game.reset();
+        game.mark(1, 1);
+        game.mark(1, 2);
+        game.mark(2, 1);
+        game.mark(2, 2);
+        game.mark(3, 1);
+        expect(game.winner).toBe(player1);
+
+      });
+
+      it('Can win middle row', () => {
+
+        game.reset();
+        game.mark(1, 2);
+        game.mark(1, 3);
+        game.mark(2, 2);
+        game.mark(2, 3);
+        game.mark(3, 2);
+        expect(game.winner).toBe(player1);
+
+      });
+
+      it('Can win bottom row', () => {
+
+        game.reset();
+        game.mark(1, 3);
+        game.mark(1, 1);
+        game.mark(2, 3);
+        game.mark(2, 1);
+        game.mark(3, 3);
+        expect(game.winner).toBe(player1);
+
+      });
 
     });
 
@@ -144,6 +265,91 @@ describe('package', () => {
       expect(game.canMark(3, 1)).toBe(true);
       expect(game.canMark(3, 2)).toBe(true);
       expect(game.canMark(3, 3)).toBe(true);
+
+    });
+
+  });
+
+  describe('Can Mark', () => {
+
+    describe('Marked Cell', () => {
+
+      tieMarks.forEach(xy => {
+
+        let game = new Lib();
+
+        it(`${xy.x}x{xy.y}`, () => {
+
+          game.reset();
+          game.mark(xy.x, xy.y);
+          expect(game.canMark(xy.x, xy.y)).toBe(false);
+
+        });
+
+      });
+
+    });
+
+    it('Can not mark after ended', () => {
+
+      let game = new Lib();
+      game.mark(1, 1);
+      game.mark(2, 1);
+      game.mark(1, 2);
+      game.mark(2, 2);
+      game.mark(1, 3);
+
+      expect(game.canMark(2, 3)).toBe(false);
+
+    });
+
+    describe('Unmarked Cell', () => {
+
+      tieMarks.forEach(xy => {
+
+        let game = new Lib();
+
+        it(`${xy.x}x{xy.y}`, () => {
+
+          game.reset();
+          expect(game.canMark(xy.x, xy.y)).toBe(true);
+
+        });
+
+      });
+
+    });
+
+  });
+
+  describe('Has Ended', () => {
+
+    it('Is not initially ended', () => {
+
+      let game = new Lib();
+      expect(game.hasEnded).toBe(false);
+
+    });
+
+    it('Ended game resets to not ended', () => {
+
+      let game = new Lib();
+      tieMarks.forEach(xy => game.mark(xy.x, xy.y));
+      game.reset();
+      expect(game.hasEnded).toBe(false);
+
+    });
+
+    tieMarks.forEach(xy => {
+
+      let game = new Lib();
+
+      it(`Tie-game Turn ${game.turn}`, () => {
+
+        game.mark(xy.x, xy.y);
+        expect(game.hasEnded).toBe(game.turn === 10);
+
+      });
 
     });
 
@@ -225,28 +431,48 @@ describe('package', () => {
 
     let game = new Lib();
 
-    describe('New game', () => {
+    describe('Player 1', () => {
 
-      beforeEach(() => {
+      tieMarks.forEach(m => {
 
-        game.reset();
+        it(`Can mark ${m.x}x${m.y}`, () => {
+
+          game.reset();
+          game.mark(m.x, m.y);
+          expect(game.markAt(m.x, m.y)).toEqual(player1);
+
+        });
 
       });
 
-      for (let x = 1; x < 4; x++) {
+    });
 
-        for (let y = 1; y < 4; y++) {
+    it('Can not be replaced', () => {
 
-            it(`Can mark ${x}x${y}`, () => {
+      game.reset();
+      game.mark(1, 1);
+      game.mark(1, 1);
 
-              game.mark(x, y);
-              expect(game.markAt(x, y)).toEqual(player1);
+      expect(game.markAt(1, 1)).toBe(player1);
+      expect(game.turn).toBe(2);
 
-            });
+    });
 
-        }
+    describe('Player 2', () => {
 
-      }
+      tieMarks.forEach((m, i) => {
+
+        it(`Can mark ${m.x}x${m.y}`, () => {
+
+          let p1 = tieMarks[(i + 1) % 9];
+          game.reset();
+          game.mark(p1.x, p1.y);
+          game.mark(m.x, m.y);
+          expect(game.markAt(m.x, m.y)).toEqual(player2);
+
+        });
+
+      });
 
     });
 
